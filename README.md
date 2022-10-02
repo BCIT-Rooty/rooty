@@ -3,6 +3,7 @@ Figma Design File: https://www.figma.com/file/eqHHWZqhVY4ZZGviUilmrn/Rooty---Pro
 Figjam Mood Board: https://www.figma.com/file/IdZlWMRPIFsVcx51Ljb4kj/Rooty-BCIT
 
 **Purpose of App**
+
 Designed to help low-income BCIT students to offer their professional skills to other BCIT students to freelance/tutor in exchange for money, credit for your work (add to your portfolio/resume), and/or exchange of equal service (instead of getting paid, you can ask your client if there is a freelancing/skill they can give you). 
 
 You can make as many posts (only visible to other BCIT students) for different freelancing/tutoring sessions like Designing Logos or giving English Lessons, for example. Services provided on this app are cheaper, more accessible to students who are in the same campus, and will allow students to practice their skills for the work-world without the same pressure.
