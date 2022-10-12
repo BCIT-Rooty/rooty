@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
-import CreatePost from './CreatePost/CreatePost.jsx'
+import CreatePost from './createPost/CreatePost.jsx'
 import {useRouter} from 'next/router';
 
 
