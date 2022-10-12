@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function CreatePost(props) {
   const [file, setFile] = useState();
@@ -7,11 +8,12 @@ export default function CreatePost(props) {
   const [isBarter, setIsBarter] = useState(true);
   const [postKeywords, setPostKeywords] = useState([]);
   const [category, setCategory] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("")
 
   function handleSubmit(e) {
     e.preventDefault();
     const theCategoryValue = getCheckedRadioValue("categories");
-    props.onSubmitForm(title, description, isBarter, theCategoryValue);
+    props.onSubmitForm(title, description, isBarter, theCategoryValue, photoUrl);
   }
 
   function handlePreventDefault(e) {
@@ -36,6 +38,25 @@ export default function CreatePost(props) {
     return null; // or undefined, or your preferred default for none checked
   }
 
+  async function handleS3Url(e) {
+    e.preventDefault();
+    let photoInput = e.target;
+    console.log(photoInput)
+    await axios.get("/api/s3").then(async (res) => {
+      const theUrlData = res.data.url;
+      console.log(theUrlData);
+      await axios({
+        method: "PUT",
+        url: theUrlData,
+        data: photoInput.files[0],
+      }).then(() => {
+        const [photoUrl] = theUrlData.split("?");
+        console.log(photoUrl);
+        setPhotoUrl(photoUrl)
+      });
+    });
+  }
+
   return (
     <>
       <main>
@@ -46,7 +67,11 @@ export default function CreatePost(props) {
               Done
             </button>
           </div>
-          <input type="file"></input>
+          <input
+            type="file"
+            accept="image/*"
+            onInput={(e) => handleS3Url(e)}
+          ></input>
           <button onClick={(e) => handlePreventDefault(e)}>+</button>
           {
             // thisButton should make the radio button disappear and reappear
