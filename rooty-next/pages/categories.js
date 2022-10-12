@@ -13,19 +13,29 @@ export default function categories() {
 
   function getCategories() {
     return categories.map((category) => {
-      return <li key={category.id}>
-        <a href=''>{category.name}</a>
-        </li>
+      if(category.name === 'FINANCE & BUSINESS') {
+        return <li key={category.id}><a href='categories/financeAndBusiness'>{category.name}</a></li>
+      } else if(category.name === 'BROADCAST & MEDIA') {
+        return <li key={category.id}><a href='categories/broadcastAndMedia'>{category.name}</a></li>
+      } else if(category.name === 'TUTORING') {
+        return <li key={category.id}><a href='categories/tutoring'>{category.name}</a></li>
+      } else if(category.name === 'ARTS & DESIGN') {
+        return <li key={category.id}><a href='categories/artsAndDesign'>{category.name}</a></li>
+      } else if(category.name === 'MARKETING') {
+        return <li key={category.id}><a href='categories/marketing'>{category.name}</a></li>
+      }
     })
   }
-  console.log(getCategories())
+
 
   return (
     <>
       <h1 className='header'>Categories</h1>
+      <div className='categories'>
       <ul className='categories'>
       {getCategories()}
       </ul>
+      </div>
     </>
   )
 }
