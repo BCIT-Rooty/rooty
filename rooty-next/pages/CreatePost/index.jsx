@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
-import CreatePost from './CreatePost/CreatePost.jsx'
+import CreatePost from './CreatePost'
 import {useRouter} from 'next/router';
 
 
@@ -19,11 +19,8 @@ export default function Home() {
 
 
   return (
-    // <div className="App">
-    //   {showPost ? <CreatePost onSubmitForm={handleCreateFromSubmit} /> : posts.map(m => <p>{m.name}</p>)}
-    // </div>
-    <>
-     <p>this is the app</p>
-    </>
+    <div className="App">
+      {showPost ? <CreatePost onSubmitForm={handleCreateFromSubmit} /> : posts.map(m => <p>{m.name}</p>)}
+    </div>
   )
 }
