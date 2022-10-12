@@ -1,6 +1,5 @@
 import categories from "../categories"
-import '../../styles/categories.css'
-
+import '../../styles/category.css' // why tf is this not working (or is it???)
 console.log("HERE", categories())
 
 // db function that pulls data from the items/"products" table where the category is equal to "artsAndDesign"
