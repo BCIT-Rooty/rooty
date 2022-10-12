@@ -6,10 +6,12 @@ export default function CreatePost(props) {
   const [description, setDescription] = useState("");
   const [isBarter, setIsBarter] = useState(true);
   const [postKeywords, setPostKeywords] = useState([]);
+  const [category, setCategory] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.onSubmitForm(title, description, isBarter);
+    const theCategoryValue = getCheckedRadioValue("categories");
+    props.onSubmitForm(title, description, isBarter, theCategoryValue);
   }
 
   function handlePreventDefault(e) {
@@ -26,6 +28,14 @@ export default function CreatePost(props) {
     }
   }
 
+  // https://stackoverflow.com/questions/8666229/how-to-get-value-from-form-input-type-radio
+  function getCheckedRadioValue(radioGroupName) {
+    var rads = document.getElementsByName(radioGroupName),
+      i;
+    for (i = 0; i < rads.length; i++) if (rads[i].checked) return rads[i].value;
+    return null; // or undefined, or your preferred default for none checked
+  }
+
   return (
     <>
       <main>
@@ -36,18 +46,52 @@ export default function CreatePost(props) {
               Done
             </button>
           </div>
-
           <input type="file"></input>
           <button onClick={(e) => handlePreventDefault(e)}>+</button>
+          {
+            // thisButton should make the radio button disappear and reappear
+          }
+          <button onClick={(e) => handlePreventDefault(e)}>
+            Choose a category
+          </button>
+          <input
+            name="categories"
+            id="bAndM"
+            type="radio"
+            value={"Broadcast & Media"}
+          />
+          <label htmlFor="Broadcast & Media"> Broadcast & Media</label>
+          <input
+            name="categories"
+            id="Digital Arts & Design"
+            type="radio"
+            value={"Digital Arts & Design"}
+          />
+          <label htmlFor="Digital Arts & Design"> Digital Arts & Design</label>
+          <input
+            name="categories"
+            id="Business & Finance"
+            type="radio"
+            value={"Business & Finance"}
+          />
+          <label htmlFor="Business & Finance"> Business & Finance</label>
 
-          <button onClick={(e) => handlePreventDefault(e)}>Choose a category</button>
-          <ul>
-            <li>Broadcast & Media</li>
-            <li>Digital Arts & Design</li>
-            <li>Business & Finance</li>
-            <li>Marketing Management</li>
-            <li>Tutoring</li>
-          </ul>
+          <input
+            name="categories"
+            id="Marketing Management"
+            type="radio"
+            value={"Marketing Management"}
+          />
+          <label htmlFor="Marketing Management"> Marketing Management</label>
+
+          <input
+            name="categories"
+            id="Tutoring"
+            type="radio"
+            value={"Tutoring"}
+          />
+          <label htmlFor="Tutoring">Tutoring</label>
+
           <h3>Choose keyword</h3>
           <button onClick={(e) => handleAddTagsToThePost(e, "Audio Mix")}>
             Audio Mix
@@ -67,7 +111,6 @@ export default function CreatePost(props) {
               type="text"
             />
           </label>
-
           <label>
             {" "}
             Describe your service
@@ -77,7 +120,6 @@ export default function CreatePost(props) {
               type="text"
             />
           </label>
-
           <input
             name="BarterOrCash"
             id="Barter"
