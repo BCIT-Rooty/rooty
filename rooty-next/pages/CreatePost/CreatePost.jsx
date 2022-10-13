@@ -11,11 +11,13 @@ export default function CreatePost(props) {
   const [description, setDescription] = useState("");
   const [isBarter, setIsBarter] = useState("");
   const [postKeywords, setPostKeywords] = useState([]);
+  const [listOfCategories, setListOfCategories] = useState(["Broadcast & Media", "Digital Arts & Design", "Business & Finance", "Marketing Management", "Tutoring"])
   const [potentialPostKeywords, setPotentialPostKeywords] = useState([
     "Audio Mix",
     "Web Design",
     "Logo Design",
   ]);
+  const [whatIsTheCategoryOfThisPost, setWhatIsTheCategoryOfThisPost] = useState("")
   const [photoUrl, setPhotoUrl] = useState("");
   const [photoInput, setPhotoInput] = useState("");
   const [barterValues, setBarterValues] = useState(["Barter", "Cash"]);
@@ -99,51 +101,19 @@ export default function CreatePost(props) {
           </div>
           <ImageInputS3 onInsertPhotoInsideS3={handleS3Url} />
           {/* change this please Sohrab so it makes a ImageInputS3 tag */}
+          
           <button onClick={(e) => handlePreventDefault(e)}>+</button>
           {
             // thisButton should make the radio button disappear and reappear
           }
-
           <button onClick={(e) => handlePreventDefault(e)}>
             Choose a category
           </button>
-          <input
-            name="categories"
-            id="bAndM"
-            type="radio"
-            value={"Broadcast & Media"}
+          <RadioInputComponent
+            radioInputTopicArray={listOfCategories}
+            radioInputTopic={"categories"}
+            radioFunctionInput={setWhatIsTheCategoryOfThisPost}
           />
-          <label htmlFor="Broadcast & Media"> Broadcast & Media</label>
-          <input
-            name="categories"
-            id="Digital Arts & Design"
-            type="radio"
-            value={"Digital Arts & Design"}
-          />
-          <label htmlFor="Digital Arts & Design"> Digital Arts & Design</label>
-          <input
-            name="categories"
-            id="Business & Finance"
-            type="radio"
-            value={"Business & Finance"}
-          />
-          <label htmlFor="Business & Finance"> Business & Finance</label>
-
-          <input
-            name="categories"
-            id="Marketing Management"
-            type="radio"
-            value={"Marketing Management"}
-          />
-          <label htmlFor="Marketing Management"> Marketing Management</label>
-
-          <input
-            name="categories"
-            id="Tutoring"
-            type="radio"
-            value={"Tutoring"}
-          />
-          <label htmlFor="Tutoring">Tutoring</label>
           <KeywordButton
             keyWords={potentialPostKeywords}
             onAddTagsToThePost={handleAddTagsToThePost}
