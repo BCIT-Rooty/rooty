@@ -3,22 +3,33 @@ import axios from "axios";
 import SubmitButton from "../../components/buttons/SubmitButton";
 import ImageInputS3 from "../../components/inputs/ImageInputS3";
 import TextInput from "../../components/inputs/TextInput";
+import KeywordButton from "../../components/buttons/KeyWordButton";
 
 export default function CreatePost(props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [isBarter, setIsBarter] = useState(true);
   const [postKeywords, setPostKeywords] = useState([]);
+  const [potentialPostKeywords, setPotentialPostKeywords] = useState([
+    "Audio Mix",
+    "Web Design",
+    "Logo Design",
+  ]);
   const [photoUrl, setPhotoUrl] = useState("");
   const [photoInput, setPhotoInput] = useState("");
 
-  
   async function handleSubmit(e) {
     e.preventDefault();
     const theCategoryValue = getCheckedRadioValue("categories");
     await uploadThePhotoToS3().then((res) => {
-      props.onSubmitForm(title, description, isBarter, theCategoryValue, res);
-      console.log("this is it!!", res);
+      props.onSubmitForm(
+        title,
+        description,
+        isBarter,
+        theCategoryValue,
+        postKeywords,
+        res
+      );
       setTitle("");
       setDescription("");
       setIsBarter(false);
@@ -26,11 +37,9 @@ export default function CreatePost(props) {
     });
   }
 
-  
   function handlePreventDefault(e) {
     e.preventDefault();
   }
-
 
   function handleAddTagsToThePost(e, inputValue) {
     e.preventDefault();
@@ -42,7 +51,6 @@ export default function CreatePost(props) {
     }
   }
 
-
   // https://stackoverflow.com/questions/8666229/how-to-get-value-from-form-input-type-radio
   function getCheckedRadioValue(radioGroupName) {
     var rads = document.getElementsByName(radioGroupName),
@@ -51,8 +59,11 @@ export default function CreatePost(props) {
     return null; // or undefined, or your preferred default for none checked
   }
 
-
   async function uploadThePhotoToS3() {
+    if (photoInput == false) {
+      let theUrlToReturn = "no Url bro";
+      return theUrlToReturn;
+    }
     let theUrlToReturn;
     await axios.get("/api/s3").then(async (res) => {
       const theUrlData = res.data.url;
@@ -68,7 +79,6 @@ export default function CreatePost(props) {
     });
     return theUrlToReturn;
   }
-
 
   async function handleS3Url(e) {
     e.preventDefault();
@@ -87,12 +97,12 @@ export default function CreatePost(props) {
             />
           </div>
           <ImageInputS3 onInsertPhotoInsideS3={handleS3Url} />
-          {/* change this please Sohrab  */}
+          {/* change this please Sohrab so it makes a ImageInputS3 tag */}
           <button onClick={(e) => handlePreventDefault(e)}>+</button>
           {
             // thisButton should make the radio button disappear and reappear
           }
-          
+
           <button onClick={(e) => handlePreventDefault(e)}>
             Choose a category
           </button>
@@ -133,19 +143,20 @@ export default function CreatePost(props) {
             value={"Tutoring"}
           />
           <label htmlFor="Tutoring">Tutoring</label>
-
-          <h3>Choose keyword</h3>
-          <button onClick={(e) => handleAddTagsToThePost(e, "Audio Mix")}>
-            Audio Mix
-          </button>
-          <button onClick={(e) => handleAddTagsToThePost(e, "Web Design")}>
-            Web Design
-          </button>
-          <button onClick={(e) => handleAddTagsToThePost(e, "Logo Design")}>
-            Logo Design
-          </button>
-          <TextInput inputDescription={"Write your title"} valueOfTheInputtt={title} onChangingTheText={setTitle} />
-          <TextInput inputDescription={"Describe your service"} valueOfTheInputtt={description} onChangingTheText={setDescription} />
+          <KeywordButton
+            keyWords={potentialPostKeywords}
+            onAddTagsToThePost={handleAddTagsToThePost}
+          />
+          <TextInput
+            inputDescription={"Write your title"}
+            valueOfTheInputtt={title}
+            onChangingTheText={setTitle}
+          />
+          <TextInput
+            inputDescription={"Describe your service"}
+            valueOfTheInputtt={description}
+            onChangingTheText={setDescription}
+          />
           <input
             name="BarterOrCash"
             id="Barter"
