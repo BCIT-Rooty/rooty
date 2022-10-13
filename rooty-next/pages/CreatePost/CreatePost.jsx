@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import SubmitButton from "../../components/buttons/SubmitButton";
 import ImageInputS3 from "../../components/inputs/ImageInputS3";
-import textInput from "../../components/inputs/TextInput";
+import TextInput from "../../components/inputs/TextInput";
 
 export default function CreatePost(props) {
   const [title, setTitle] = useState("");
@@ -144,24 +144,8 @@ export default function CreatePost(props) {
           <button onClick={(e) => handleAddTagsToThePost(e, "Logo Design")}>
             Logo Design
           </button>
-          <label>
-            {" "}
-            Write your title
-            <input
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              type="text"
-            />
-          </label>
-          <label>
-            {" "}
-            Describe your service
-            <input
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              type="text"
-            />
-          </label>
+          <TextInput inputDescription={"Write your title"} valueOfTheInputtt={title} onChangingTheText={setTitle} />
+          <TextInput inputDescription={"Describe your service"} valueOfTheInputtt={description} onChangingTheText={setDescription} />
           <input
             name="BarterOrCash"
             id="Barter"
