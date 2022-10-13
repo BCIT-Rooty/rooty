@@ -11,13 +11,20 @@ export default function CreatePost(props) {
   const [description, setDescription] = useState("");
   const [isBarter, setIsBarter] = useState("");
   const [postKeywords, setPostKeywords] = useState([]);
-  const [listOfCategories, setListOfCategories] = useState(["Broadcast & Media", "Digital Arts & Design", "Business & Finance", "Marketing Management", "Tutoring"])
+  const [listOfCategories, setListOfCategories] = useState([
+    "Broadcast & Media",
+    "Digital Arts & Design",
+    "Business & Finance",
+    "Marketing Management",
+    "Tutoring",
+  ]);
   const [potentialPostKeywords, setPotentialPostKeywords] = useState([
     "Audio Mix",
     "Web Design",
     "Logo Design",
   ]);
-  const [whatIsTheCategoryOfThisPost, setWhatIsTheCategoryOfThisPost] = useState("")
+  const [whatIsTheCategoryOfThisPost, setWhatIsTheCategoryOfThisPost] =
+    useState("");
   const [photoUrl, setPhotoUrl] = useState("");
   const [photoInput, setPhotoInput] = useState("");
   const [barterValues, setBarterValues] = useState(["Barter", "Cash"]);
@@ -101,7 +108,7 @@ export default function CreatePost(props) {
           </div>
           <ImageInputS3 onInsertPhotoInsideS3={handleS3Url} />
           {/* change this please Sohrab so it makes a ImageInputS3 tag */}
-          
+
           <button onClick={(e) => handlePreventDefault(e)}>+</button>
           {
             // thisButton should make the radio button disappear and reappear
