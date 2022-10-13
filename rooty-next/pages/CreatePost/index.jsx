@@ -14,7 +14,7 @@ export default function Home() {
   }])
 
   function handleCreateFromSubmit(titleInput, descriptionInput, barterInput, categoriesValue, onePhotoInput) {
-    console.log(titleInput, descriptionInput, barterInput, categoriesValue, onePhotoInput)
+    console.log(titleInput, descriptionInput, barterInput, categoriesValue, " || this is the photo input ===> " ,onePhotoInput)
   }
 
 

@@ -1,24 +1,36 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import SubmitButton from "../../components/buttons/SubmitButton";
+import ImageInputS3 from "../../components/inputs/ImageInputS3";
+import textInput from "../../components/inputs/TextInput";
 
 export default function CreatePost(props) {
-  const [file, setFile] = useState();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [isBarter, setIsBarter] = useState(true);
   const [postKeywords, setPostKeywords] = useState([]);
-  const [category, setCategory] = useState("");
-  const [photoUrl, setPhotoUrl] = useState("")
+  const [photoUrl, setPhotoUrl] = useState("");
+  const [photoInput, setPhotoInput] = useState("");
 
-  function handleSubmit(e) {
+  
+  async function handleSubmit(e) {
     e.preventDefault();
     const theCategoryValue = getCheckedRadioValue("categories");
-    props.onSubmitForm(title, description, isBarter, theCategoryValue, photoUrl);
+    await uploadThePhotoToS3().then((res) => {
+      props.onSubmitForm(title, description, isBarter, theCategoryValue, res);
+      console.log("this is it!!", res);
+      setTitle("");
+      setDescription("");
+      setIsBarter(false);
+      setPhotoUrl("");
+    });
   }
 
+  
   function handlePreventDefault(e) {
     e.preventDefault();
   }
+
 
   function handleAddTagsToThePost(e, inputValue) {
     e.preventDefault();
@@ -30,6 +42,7 @@ export default function CreatePost(props) {
     }
   }
 
+
   // https://stackoverflow.com/questions/8666229/how-to-get-value-from-form-input-type-radio
   function getCheckedRadioValue(radioGroupName) {
     var rads = document.getElementsByName(radioGroupName),
@@ -38,23 +51,28 @@ export default function CreatePost(props) {
     return null; // or undefined, or your preferred default for none checked
   }
 
-  async function handleS3Url(e) {
-    e.preventDefault();
-    let photoInput = e.target;
-    console.log(photoInput)
+
+  async function uploadThePhotoToS3() {
+    let theUrlToReturn;
     await axios.get("/api/s3").then(async (res) => {
       const theUrlData = res.data.url;
-      console.log(theUrlData);
       await axios({
         method: "PUT",
         url: theUrlData,
         data: photoInput.files[0],
       }).then(() => {
-        const [photoUrl] = theUrlData.split("?");
-        console.log(photoUrl);
-        setPhotoUrl(photoUrl)
+        const [photoUrlRet] = theUrlData.split("?");
+        setPhotoUrl(photoUrlRet);
+        theUrlToReturn = photoUrlRet;
       });
     });
+    return theUrlToReturn;
+  }
+
+
+  async function handleS3Url(e) {
+    e.preventDefault();
+    setPhotoInput(e.target);
   }
 
   return (
@@ -63,19 +81,18 @@ export default function CreatePost(props) {
         <form>
           <div>
             <h1>Create your post</h1>
-            <button onClick={(e) => handleSubmit(e)} type="submit">
-              Done
-            </button>
+            <SubmitButton
+              onSubmitButtonClicked={handleSubmit}
+              textInsideTheButton={"Done"}
+            />
           </div>
-          <input
-            type="file"
-            accept="image/*"
-            onInput={(e) => handleS3Url(e)}
-          ></input>
+          <ImageInputS3 onInsertPhotoInsideS3={handleS3Url} />
+          {/* change this please Sohrab  */}
           <button onClick={(e) => handlePreventDefault(e)}>+</button>
           {
             // thisButton should make the radio button disappear and reappear
           }
+          
           <button onClick={(e) => handlePreventDefault(e)}>
             Choose a category
           </button>
