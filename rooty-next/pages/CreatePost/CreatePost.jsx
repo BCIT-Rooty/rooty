@@ -4,11 +4,12 @@ import SubmitButton from "../../components/buttons/SubmitButton";
 import ImageInputS3 from "../../components/inputs/ImageInputS3";
 import TextInput from "../../components/inputs/TextInput";
 import KeywordButton from "../../components/buttons/KeyWordButton";
+import RadioInputComponent from "../../components/inputs/RadioInputComponent";
 
 export default function CreatePost(props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [isBarter, setIsBarter] = useState(true);
+  const [isBarter, setIsBarter] = useState("");
   const [postKeywords, setPostKeywords] = useState([]);
   const [potentialPostKeywords, setPotentialPostKeywords] = useState([
     "Audio Mix",
@@ -17,7 +18,7 @@ export default function CreatePost(props) {
   ]);
   const [photoUrl, setPhotoUrl] = useState("");
   const [photoInput, setPhotoInput] = useState("");
-
+  const [barterValues, setBarterValues] = useState(["Barter", "Cash"]);
   async function handleSubmit(e) {
     e.preventDefault();
     const theCategoryValue = getCheckedRadioValue("categories");
@@ -30,10 +31,10 @@ export default function CreatePost(props) {
         postKeywords,
         res
       );
-      setTitle("");
-      setDescription("");
-      setIsBarter(false);
-      setPhotoUrl("");
+      // setTitle("");
+      // setDescription("");
+      // setIsBarter("");
+      // setPhotoUrl("");
     });
   }
 
@@ -157,22 +158,11 @@ export default function CreatePost(props) {
             valueOfTheInputtt={description}
             onChangingTheText={setDescription}
           />
-          <input
-            name="BarterOrCash"
-            id="Barter"
-            type="radio"
-            value={"barter"}
-            onClick={() => setIsBarter(true)}
+          <RadioInputComponent
+            radioInputTopicArray={barterValues}
+            radioInputTopic={"BarterOrCash"}
+            radioFunctionInput={setIsBarter}
           />
-          <label htmlFor="Barter"> Barter</label>
-          <input
-            name="BarterOrCash"
-            id="Cash"
-            type="radio"
-            value={"cash"}
-            onClick={() => setIsBarter(false)}
-          />
-          <label htmlFor="Cash"> Cash</label>
         </form>
       </main>
     </>
