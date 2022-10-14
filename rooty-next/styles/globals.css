@@ -1,0 +1,48 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: light) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: white;
+    background: black;
+  }
+}
+
+/* box-icon.icon{
+  position:absolute;
+}
+box-icon.activeIcon{
+  opacity: 0;
+  pointer-events: none;
+}
+
+Navigation > div > box-icon.activeIcon{
+  opacity: 1;
+  pointer-events: none;
+}
+
+div.active{
+  opacity: 1;
+  pointer-events: auto;
+} */
+
+.css-ybol96-MuiButtonBase-root-MuiTab-root{
+  min-width:0%
+}
