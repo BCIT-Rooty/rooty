@@ -22,6 +22,7 @@ export default function CreatePost(props) {
     "Audio Mix",
     "Web Design",
     "Logo Design",
+    "Anna"
   ]);
   const [whatIsTheCategoryOfThisPost, setWhatIsTheCategoryOfThisPost] =
     useState("");
