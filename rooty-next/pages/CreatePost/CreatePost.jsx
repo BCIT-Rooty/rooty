@@ -126,13 +126,13 @@ export default function CreatePost(props) {
             onAddTagsToThePost={handleAddTagsToThePost}
           />
           <TextInput
-            inputDescription={"Write your title"}
-            valueOfTheInputtt={title}
+            inputTitle={"Write your title"}
+            valueOfTheInput={title}
             onChangingTheText={setTitle}
           />
           <TextInput
-            inputDescription={"Describe your service"}
-            valueOfTheInputtt={description}
+            inputTitle={"Describe your service"}
+            valueOfTheInput={description}
             onChangingTheText={setDescription}
           />
           <RadioInputComponent
