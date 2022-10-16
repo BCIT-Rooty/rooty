@@ -32,11 +32,21 @@ export default function NavBar({ route }) {
   //   bottom:0
   // `
   const Navigation = styled(BottomNavigation)`
-    min-width: 0%
+    min-width: 100%;
+    margin: 0
     `
+  const Boxy = styled(Box)`
+    width: 100vw;
+    color: #4F4DB0;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 10
+  `
 
   return (
-    <Box sx={{ width: "100vw", color: "#4F4DB0", position: "fixed", bottom: 0}}>
+    <Boxy>
       <Navigation showLabels value={index}>
         <Tab icon={<HomeIcon fontSize="large" />}
           onClick={() => HandleNavBarIcons("/homepage", 1)} />
@@ -49,7 +59,7 @@ export default function NavBar({ route }) {
         <Tab icon={<PersonIcon fontSize="large" />}
           onClick={() => HandleNavBarIcons("/accountpage", 5)} />
       </Navigation>
-    </Box>
+    </Boxy>
   )
 }
 
