@@ -11,6 +11,13 @@
     "build-storybook": "build-storybook -s ./public"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/icons-material": "^5.10.6",
+    "@mui/material": "^5.10.8",
+    "@mui/styled-engine-sc": "^5.10.6",
+    "boxicons": "^2.1.4",
     "aws-sdk": "^2.1231.0",
     "axios": "^1.1.2",
     "crypto": "^1.0.1",

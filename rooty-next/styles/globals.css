@@ -12,8 +12,7 @@ a {
 }
 
 
-
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   html {
     color-scheme: dark;
   }
@@ -179,4 +178,26 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* box-icon.icon{
+  position:absolute;
+}
+box-icon.activeIcon{
+  opacity: 0;
+  pointer-events: none;
+}
+
+Navigation > div > box-icon.activeIcon{
+  opacity: 1;
+  pointer-events: none;
+}
+
+div.active{
+  opacity: 1;
+  pointer-events: auto;
+} */
+
+.css-ybol96-MuiButtonBase-root-MuiTab-root{
+  min-width:0%
 }
