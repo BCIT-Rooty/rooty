@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }) {
 
   const router = useRouter()
 
-  console.log(router)
+  // console.log(router)
   return (
     <>
       <NavBar 

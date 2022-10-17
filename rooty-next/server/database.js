@@ -38,6 +38,35 @@ export const items = [
     },
 ];
 
+export const fakeDbChat = [
+    {
+        chatRoomId: 18,
+        user_id_1: 1,
+        User_id_2: 2,
+    }
+]
+
+export const fakeDbMessage = [
+    {
+        message_id: 1,
+        content: "This is the first message",
+        user_id: 1,
+        chatRoomId: 1
+    }, 
+    {
+        message_id: 2,
+        content: "This is the second message",
+        user_id: 2,
+        chatRoomId: 1
+    }
+]
+
+export function writeChatToTheDataBase(inputText, dateDB, userIdGlobal, room) {
+    fakeDbMessage.push({
+        content: inputText, user_id: userIdGlobal, chatRoomId: room
+    })
+    console.log(fakeDbMessage)
+}
 
 
 export async function getItemsForEachCategory(categoryId){
