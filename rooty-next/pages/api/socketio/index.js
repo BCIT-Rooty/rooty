@@ -1,16 +1,24 @@
 import { Server } from 'socket.io'
 import date from "date-and-time";
 import * as db from "../../../server/database.js"
+// import { useState } from 'react';
 
 export default function ioHandler(req, res)  {
+  // const [userIdGlobal, setUserIdGlobal] = useState(2)
+  var userIdGlobal
+  
+  // if (!userIdGlobal) {
+    // userIdGlobal = Math.floor(Math.random() * 10000) + 1;
+  // }
+  
     if (!res.socket.server.io) {
       console.log('First use, starting socket.io')
       const io = new Server(res.socket.server)
 
       var theChatRoomId;
-      var userIdGlobal;
       io.on("connection", (socket) => {
-        console.log(socket.rooms)
+        userIdGlobal = socket.id
+        // console.log(socket.rooms)
         socket.join(theChatRoomId);
         socket.on("send-text", (inputText, room) => {
           if (room == null) {
@@ -22,7 +30,8 @@ export default function ioHandler(req, res)  {
           }
         });
         socket.on("join-room", (room) => {
-          console.log(room)
+          // console.log(room)
+          
           theChatRoomId = room
           socket.join(room);
           socket.leave(socket.id);
@@ -47,4 +56,3 @@ export default function ioHandler(req, res)  {
       bodyParser: false
     }
   }
-  

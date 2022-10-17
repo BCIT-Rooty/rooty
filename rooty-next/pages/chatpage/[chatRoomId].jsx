@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import SubmitButton from "../../components/buttons/SubmitButton";
 import TextInput from "../../components/inputs/TextInput";
+import { fakeDbMessage } from "../../server/database";
+import * as db from "../../server/database";
 
 export default function ACertainChatRoom(props) {
   const router = useRouter();
@@ -11,8 +13,11 @@ export default function ACertainChatRoom(props) {
   const theChatRoomId = props.theId;
   const [message, setMessage] = useState("");
   const socket = io();
+  const [chats, setChats] = useState([]);
+  var userIdGlobal;
 
   useEffect(() => {
+    userIdGlobal = Math.floor(Math.random() * 10000) + 1;
     fetch("/api/socketio").finally(() => {
       socket.on("connect", () => {
         joinRoom(theChatRoomId);
@@ -23,18 +28,6 @@ export default function ACertainChatRoom(props) {
         console.log(message, userId);
       });
 
-    //   function displayMessage(message, userId) {
-    //     const div = document.createElement("div");
-    //     div.append(message);
-    //     div.classList.add("message-box");
-    //     if (myUserId === userId) {
-    //       div.classList.add("my-message");
-    //     } else {
-    //       div.classList.add("not-my-message");
-    //     }
-    //     messagesContainer.appendChild(div);
-    //   }
-
       window.onbeforeunload = function () {
         socket.emit("avoid-duplicate");
       };
@@ -42,27 +35,18 @@ export default function ACertainChatRoom(props) {
   }, []);
 
   function joinRoom(room) {
-    console.log("Joined room", room)
-    socket.emit("join-room", room);
+    console.log("Joined room", room);
+    socket.emit("join-room", room, userIdGlobal);
   }
 
   function sendTextToTheBackEnd(inputText, room) {
     socket.emit("send-text", inputText, room);
   }
 
-  //   sendButton.addEventListener("click", () => {
-  //     const message = messageInput.value;
-  //     if (message.length) {
-  //       sendTextToTheBackEnd(message, theChatRoomId);
-  //       messageInput.value = "";
-  //     }
-  //   });
-
   function handleSendButton(e) {
     e.preventDefault();
     if (message.length) {
       sendTextToTheBackEnd(message, theChatRoomId);
-      setMessage("");
     }
   }
 
@@ -74,7 +58,10 @@ export default function ACertainChatRoom(props) {
           value={message}
           onChangingTheText={setMessage}
         />
-        <SubmitButton onSubmitButtonClicked={handleSendButton} textInsideTheButton={"Done"} />
+        <SubmitButton
+          onSubmitButtonClicked={handleSendButton}
+          textInsideTheButton={"Done"}
+        />
       </form>
     </>
   );

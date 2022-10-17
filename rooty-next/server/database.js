@@ -65,7 +65,12 @@ export function writeChatToTheDataBase(inputText, dateDB, userIdGlobal, room) {
     fakeDbMessage.push({
         content: inputText, user_id: userIdGlobal, chatRoomId: room
     })
-    console.log(fakeDbMessage)
+    // console.log(fakeDbMessage)
+}
+
+export function getAllChatWithRoomId(roomId) {
+    const newFakeDb = fakeDbMessage.filter(m => m.chatRoomId == roomId)
+    return newFakeDb
 }
 
 
