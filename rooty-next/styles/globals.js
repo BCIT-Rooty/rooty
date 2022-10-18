@@ -21,6 +21,7 @@ export const FlexBox = styled.div`
     position: ${props=>props.position};
     top: ${props=>props.top};
     left:${props=>props.left};
+    scrollbar-width: none;
     
 `
 
