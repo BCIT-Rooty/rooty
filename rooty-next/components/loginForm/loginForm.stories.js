@@ -6,6 +6,6 @@ export default { // storybook requires a default export which tells it which com
     component: LoginForm,
 };
 
-export const Default = () => <LoginForm />; // any exports will be stories within storybook
-export const Test = () => <LoginForm />;
+export const DefaultForm = () => <LoginForm />; // any exports will be stories within storybook
+export const IconForm = () => <LoginForm icons/>;
 // export const WithOnLogin = () => <LoginForm onLogin={(email, password) => console.log(email, password)} />; // Example

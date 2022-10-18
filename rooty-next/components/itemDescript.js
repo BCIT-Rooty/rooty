@@ -33,4 +33,3 @@ export default function Item({ id, name, rating, compensation, image, onClick=()
         </FlexBox>
   );
 };
-

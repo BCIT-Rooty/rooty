@@ -1,9 +1,13 @@
-import Item from '../../components/Item'
-import { getItemsForEachCategory } from '../../server/database.js'
+import Item from '../../components/Item';
+import { getItemsForEachCategory } from '../../server/database.js';
+import {useRouter} from 'next/router';
 
 
 
 export default function OneCategory({ categoryItems }) {
+
+    const r = useRouter();
+
     console.log(categoryItems)
     return (
         <div>
@@ -11,7 +15,12 @@ export default function OneCategory({ categoryItems }) {
                 categoryItems.map((item) => {
                     return (
                     <div key={item.id}>
-                        <Item name={item.name} rating={item.rating} description={item.description} />
+                        <Item 
+                            // onClick={
+                            // ()=>r.push({
+                            // pathname:`${item.id}/descript`,
+                            // })}
+                            name={item.name} rating={item.rating} description={item.description} compensation={item.compensation} image={item.image}/>
                     </div>
                     )
                 })
